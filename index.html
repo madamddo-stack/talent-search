@@ -6,42 +6,928 @@
 <title>인재 검색</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--brand-50:#FBF4EF;--brand-100:#FAEAE0;--brand-500:#FF6D12;--brand-600:#DA5400;--gray-50:#F1F2F3;--gray-100:#E6E8EA;--gray-200:#D5D8DC;--gray-300:#C2C6CD;--gray-400:#AFB5BE;--gray-500:#949BA8;--gray-600:#768091;--gray-700:#575F6C;--gray-800:#3E434B;--gray-950:#1A1A1E;--blue-50:#EFF5FD;--blue-500:#3B8CF6;--red-50:#FBF5F5;--red-500:#EF4343;--green-50:#EAFAF4;--green-500:#0DBC7C;--violet-50:#F5F3FF;--violet-500:#8B5CF6;--color-primary:var(--brand-500);--color-primary-hover:var(--brand-600);--bg-base:#fff;--bg-surface:var(--gray-50);--text-default:var(--gray-950);--border-default:var(--gray-200);--r-4:4px;--r-6:6px;--r-8:8px;--r-999:999px;--shadow-list:0 4px 16px rgba(0,0,0,.12);--font:'Noto Sans KR',-apple-system,sans-serif}
-:root{--brand-50:#EEF2FE;--brand-100:#D9E0FD;--brand-500:#1B55F6;--brand-600:#1240CC;--gray-50:#F4F6F7;--gray-100:#E6E8EA;--gray-200:#D1D6DA;--gray-300:#B8BFC5;--gray-400:#9EA8B0;--gray-500:#86919A;--gray-600:#636C74;--gray-700:#484F56;--gray-800:#30363C;--gray-950:#131618;--blue-50:#EFF5FD;--blue-500:#3B8CF6;--red-50:#FBF5F5;--red-500:#EF4343;--green-50:#EAFAF4;--green-500:#0DBC7C;--violet-50:#F5F3FF;--violet-500:#8B5CF6;--color-primary:#1B55F6;--color-primary-hover:#1240CC;--bg-base:#FFFFFF;--bg-surface:#F4F6F7;--text-default:#131618;--border-default:#D1D6DA;--r-4:4px;--r-6:6px;--r-8:8px;--r-999:999px;--shadow-list:0 4px 16px rgba(0,0,0,.12);--font:'Noto Sans KR',-apple-system,sans-serif}
+:root{--brand-50:#EEF2FE;--brand-100:#D9E0FD;--brand-500:#1B55F6;--brand-600:#1240CC;--gray-50:#F4F6F7;--gray-100:#E6E8EA;--gray-200:#D1D6DA;--gray-300:#B8BFC5;--gray-400:#9EA8B0;--gray-500:#86919A;--gray-600:#636C74;--gray-700:#484F56;--gray-800:#30363C;--gray-950:#131618;--blue-50:#EFF5FD;--blue-500:#3B8CF6;--red-50:#FBF5F5;--red-500:#EF4343;--green-50:#EAFAF4;--green-500:#0DBC7C;--violet-50:#F5F3FF;--violet-500:#8B5CF6;--color-primary:#1B55F6;--color-primary-hover:#1240CC;--bg-base:#FFFFFF;--bg-surface:#F4F6F7;--text-default:#131618;--border-default:#D1D6DA;--r-4:4px;--r-6:6px;--r-8:8px;--r-999:999px;--shadow-list:0 4px 16px rgba(0,0,0,.12);--shadow-modal:0 20px 60px rgba(0,0,0,.18);--font:'Noto Sans KR',-apple-system,sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--font);background:var(--bg-surface);color:var(--text-default)}
-.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border-default);background:var(--bg-base);border-radius:var(--r-8);padding:0 12px;font:500 13px/1 var(--font);color:var(--gray-700);cursor:pointer;white-space:nowrap;transition:background .15s}.btn:hover{background:var(--gray-50)}.btn-primary{background:var(--color-primary);color:#fff;border-color:var(--color-primary);font-weight:600}.btn-primary:hover{background:var(--color-primary-hover)}.btn-dark{background:var(--gray-950);color:#fff;border-color:var(--gray-950)}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border-default);background:var(--bg-base);border-radius:var(--r-8);padding:0 12px;font:500 13px/1 var(--font);color:var(--gray-700);cursor:pointer;white-space:nowrap;transition:background .15s}.btn:hover{background:var(--gray-50)}.btn-primary{background:var(--color-primary);color:#fff;border-color:var(--color-primary);font-weight:600}.btn-primary:hover{background:var(--color-primary-hover)}.btn-dark{background:var(--gray-950);color:#fff;border-color:var(--gray-950)}.btn-dark:hover{background:var(--gray-800)}.btn-outline{background:transparent;color:var(--color-primary);border-color:var(--color-primary)}.btn-outline:hover{background:var(--brand-50)}
 .badge{display:inline-flex;align-items:center;border-radius:var(--r-4);padding:2px 6px;font:700 12px/1 var(--font);white-space:nowrap}.badge-violet{background:var(--violet-50);color:var(--violet-500)}.badge-green{background:var(--green-50);color:var(--green-500)}.badge-gray{background:var(--bg-base);color:var(--gray-500);border:1px solid var(--gray-300)}.badge-blue{background:var(--blue-50);color:var(--blue-500)}.badge-red{background:var(--red-50);color:var(--red-500)}
-.tag-job{background:#f0f2f7;color:#8693ab;border-radius:var(--r-4);padding:2px 6px;font:700 12px/20px var(--font)}.tag-skill{background:#f5f5f5;color:var(--gray-700);border-radius:var(--r-4);padding:2px 6px;font:700 12px/20px var(--font)}.chip{display:inline-flex;align-items:center;gap:4px;height:26px;padding:0 8px;border:1px solid #e4e7ec;border-radius:var(--r-999);font:700 12px/1 var(--font);color:var(--gray-950);background:transparent}
-.page{display:flex;flex-direction:column;min-height:100vh}.header{position:sticky;top:0;z-index:100;background:var(--bg-base);border-bottom:1px solid var(--border-default);height:64px;display:flex;align-items:center;padding:0 32px;gap:16px}.header-title{font:700 20px/1 var(--font);color:var(--gray-950)}.header-count{display:inline-flex;align-items:center;background:var(--brand-50);color:var(--brand-500);font:600 12px/1 var(--font);padding:4px 10px;border-radius:var(--r-999)}.spacer{flex:1}
-.control-bar{background:var(--bg-base);border-bottom:1px solid var(--border-default);height:52px;display:flex;align-items:center;padding:0 32px;gap:12px}.check-wrap{display:flex;align-items:center;gap:8px;cursor:pointer}.check-wrap input{width:16px;height:16px;accent-color:var(--color-primary)}.search-box{display:flex;align-items:center;gap:8px;height:36px;border:1px solid var(--border-default);border-radius:var(--r-8);padding:0 12px;background:var(--bg-base);width:320px}.search-select{border:none;outline:none;font:400 13px/1 var(--font);color:var(--gray-700);background:transparent}.search-divider{width:1px;height:16px;background:var(--gray-200)}.search-input{flex:1;border:none;outline:none;font:400 13px/1 var(--font);background:transparent}.search-input::placeholder{color:var(--gray-400)}
-.filter-bar{background:var(--bg-base);border-bottom:1px solid var(--border-default);height:48px;display:flex;align-items:center;padding:0 32px;gap:8px;overflow-x:auto;scrollbar-width:none}.active-filter-bar{background:var(--bg-base);border-bottom:1px solid var(--border-default);padding:10px 32px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}.active-chip{display:inline-flex;align-items:center;gap:4px;height:28px;padding:0 8px;background:var(--brand-50);color:var(--brand-500);border:1px solid var(--brand-100);border-radius:var(--r-999);font:600 12px/1 var(--font)}
-.content{padding:24px 32px;display:flex;flex-direction:column;gap:6px}.result-meta{font:400 14px/1 var(--font);color:var(--gray-700)}.result-meta strong{font-weight:600;color:var(--gray-950)}.top-section{background:linear-gradient(135deg,#fff7f3,#fff 60%);border:1px solid var(--brand-100);border-radius:var(--r-8);padding:16px 20px}.top-title{font:700 14px/1 var(--font);color:var(--brand-500);margin-bottom:12px}.top-cards{display:flex;gap:12px;overflow-x:auto;scrollbar-width:none}
-.card-list{display:flex;flex-direction:column;gap:8px}.talent-card{background:var(--bg-base);border:1px solid var(--gray-200);border-radius:var(--r-8);padding:20px 24px;display:flex;gap:16px;cursor:pointer;transition:box-shadow .15s}.talent-card:hover{box-shadow:var(--shadow-list)}.talent-card.viewed{background:#f9f9fb}.talent-card.dim-1{background:#f7f7f7}
-.avatar{width:40px;height:40px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px}.avatar-ok{background:#f4f4f4}.avatar-lock{background:linear-gradient(135deg,var(--gray-300),var(--gray-500));color:#fff;font-size:14px}.card-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}.row1{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.card-name{font:700 16px/1 var(--font);color:#222}.card-info{font:400 14px/1 var(--font);color:#222}.card-age{font:400 14px/1 var(--font);color:#858585}.updated{font:400 12px/1 var(--font);color:#858585;margin-bottom:8px}
-.sec{display:flex;gap:8px;align-items:flex-start}.sec-label{font:700 14px/20px var(--font);color:#9e9e9e;min-width:32px;flex-shrink:0}.sec-body{flex:1;min-width:0}.career-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font:400 14px/20px var(--font)}.pipe{width:1px;height:12px;background:#e8e8e8;display:inline-block}.sub-pipe{width:1px;height:10px;background:#d2d2d2;display:inline-block}.status-on{color:var(--green-500);font:400 13px/1 var(--font)}.status-off{color:var(--gray-500);font:400 13px/1 var(--font)}.secret{color:#bbb;letter-spacing:2px}
-.expand-panel{background:#f3f4f6;border-radius:var(--r-6);padding:12px 16px;margin-top:8px;display:none;flex-direction:column;gap:6px}.expand-panel.open{display:flex}.exp-item{display:flex;align-items:center;gap:6px;font:400 13px/18px var(--font);color:#6a6a6a}.exp-dot{width:4px;height:4px;border-radius:50%;background:#6a6a6a;flex-shrink:0}.tags{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:4px}.tag-div{width:1px;height:12px;background:#e8e8e8;margin:0 4px}.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
-.action{width:130px;flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;gap:8px}.action-top{display:flex;flex-direction:column;align-items:flex-end;gap:6px;width:100%}.propose-btn{width:100%;height:32px;border-radius:var(--r-4);font:600 13px/1 var(--font)}.prop-hist{display:flex;flex-direction:column;align-items:flex-end;gap:4px}.prop-date{font:400 12px/1 var(--font);color:#8693ab}.viewed-lbl{font:400 12px/1 var(--font);color:#8693ab}.exp-btn{width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:var(--bg-base);border:1px solid #d2d3d7;border-radius:var(--r-4);cursor:pointer;font-size:12px;color:var(--gray-600);transition:transform .2s}.exp-btn.open{transform:rotate(180deg)}
+.tag-job{background:#EEF2FE;color:var(--color-primary);border-radius:var(--r-4);padding:2px 8px;font:600 12px/20px var(--font)}.tag-skill{background:var(--gray-100);color:var(--gray-700);border-radius:var(--r-4);padding:2px 8px;font:500 12px/20px var(--font)}.chip{display:inline-flex;align-items:center;gap:4px;height:26px;padding:0 8px;border:1px solid var(--border-default);border-radius:var(--r-999);font:600 12px/1 var(--font);color:var(--gray-950);background:transparent}
+
+/* ── 레이아웃 ── */
+.page{display:flex;flex-direction:column;min-height:100vh}
+.header{position:sticky;top:0;z-index:100;background:var(--bg-base);border-bottom:1px solid var(--border-default);height:64px;display:flex;align-items:center;padding:0 32px;gap:16px}
+.header-title{font:700 20px/1 var(--font);color:var(--gray-950)}.header-count{display:inline-flex;align-items:center;background:var(--brand-50);color:var(--color-primary);font:600 12px/1 var(--font);padding:4px 10px;border-radius:var(--r-999)}.spacer{flex:1}
+.control-bar{background:var(--bg-base);border-bottom:1px solid var(--border-default);height:52px;display:flex;align-items:center;padding:0 32px;gap:12px}
+.check-wrap{display:flex;align-items:center;gap:8px;cursor:pointer}.check-wrap input{width:16px;height:16px;accent-color:var(--color-primary)}
+.search-box{display:flex;align-items:center;gap:8px;height:36px;border:1px solid var(--border-default);border-radius:var(--r-8);padding:0 12px;background:var(--bg-base);width:320px}
+.search-select{border:none;outline:none;font:400 13px/1 var(--font);color:var(--gray-700);background:transparent}.search-divider{width:1px;height:16px;background:var(--gray-200)}.search-input{flex:1;border:none;outline:none;font:400 13px/1 var(--font);background:transparent}.search-input::placeholder{color:var(--gray-400)}
+.filter-bar{background:var(--bg-base);border-bottom:1px solid var(--border-default);height:48px;display:flex;align-items:center;padding:0 32px;gap:8px;overflow-x:auto;scrollbar-width:none}
+.active-filter-bar{background:var(--bg-base);border-bottom:1px solid var(--border-default);padding:10px 32px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.active-chip{display:inline-flex;align-items:center;gap:4px;height:28px;padding:0 8px;background:var(--brand-50);color:var(--color-primary);border:1px solid var(--brand-100);border-radius:var(--r-999);font:600 12px/1 var(--font)}
+.content{padding:24px 32px;display:flex;flex-direction:column;gap:16px}
+.result-meta{font:400 14px/1 var(--font);color:var(--gray-700)}.result-meta strong{font-weight:600;color:var(--gray-950)}
+.top-section{background:linear-gradient(135deg,#EEF2FE,#fff 60%);border:1px solid var(--brand-100);border-radius:var(--r-8);padding:16px 20px}
+.top-title{font:700 14px/1 var(--font);color:var(--color-primary);margin-bottom:12px}.top-cards{display:flex;gap:12px;overflow-x:auto;scrollbar-width:none}
+.card-list{display:flex;flex-direction:column;gap:8px}
+.talent-card{background:var(--bg-base);border:1px solid var(--gray-200);border-radius:var(--r-8);padding:20px 24px;display:flex;gap:16px;cursor:pointer;transition:box-shadow .15s,border-color .15s}.talent-card:hover{box-shadow:var(--shadow-list);border-color:var(--brand-100)}.talent-card.viewed{background:#F9F9FB}.talent-card.dim-1{background:#F7F7F7}
+.avatar{width:40px;height:40px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font:700 15px/1 var(--font)}.avatar-ok{background:var(--brand-50);color:var(--color-primary)}.avatar-lock{background:linear-gradient(135deg,var(--gray-300),var(--gray-500));color:#fff;font-size:14px}
+.card-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}.row1{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.card-name{font:700 16px/1 var(--font);color:#222}.card-info{font:400 14px/1 var(--font);color:#222}.card-age{font:400 14px/1 var(--font);color:#858585}.updated{font:400 12px/1 var(--font);color:#858585;margin-bottom:8px}
+.sec{display:flex;gap:8px;align-items:flex-start}.sec-label{font:700 14px/20px var(--font);color:#9e9e9e;min-width:32px;flex-shrink:0}.sec-body{flex:1;min-width:0}.career-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font:400 14px/20px var(--font)}.pipe{width:1px;height:12px;background:#e8e8e8;display:inline-block}.status-on{color:var(--green-500);font:400 13px/1 var(--font)}.status-off{color:var(--gray-500);font:400 13px/1 var(--font)}.secret{color:#bbb;letter-spacing:2px}
+.expand-panel{background:#F3F4F6;border-radius:var(--r-6);padding:12px 16px;margin-top:8px;display:none;flex-direction:column;gap:6px}.expand-panel.open{display:flex}.exp-item{display:flex;align-items:center;gap:6px;font:400 13px/18px var(--font);color:#6a6a6a}.exp-dot{width:4px;height:4px;border-radius:50%;background:#6a6a6a;flex-shrink:0}
+.tags{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:4px}.tag-div{width:1px;height:12px;background:#e8e8e8;margin:0 4px}.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+/* card-row-top: 아바타 + 카드 메인 가로 배치 */
+.card-row-top{display:flex;gap:12px;flex:1;min-width:0}
+.action{width:130px;flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;gap:8px}.action-top{display:flex;flex-direction:column;align-items:flex-end;gap:6px;width:100%}.propose-btn{width:100%;height:32px;border-radius:var(--r-4);font:600 13px/1 var(--font)}.prop-hist{display:flex;flex-direction:column;align-items:flex-end;gap:4px}.prop-date{font:400 12px/1 var(--font);color:#8693ab}.viewed-lbl{font:400 12px/1 var(--font);color:#8693ab}
+.exp-btn{width:28px;height:28px;display:flex;align-items:center;justify-content:center;background:var(--bg-base);border:1px solid #d2d3d7;border-radius:var(--r-4);cursor:pointer;font-size:11px;color:var(--gray-600);transition:transform .2s}.exp-btn.open{transform:rotate(180deg)}
+/* 터치 영역 최적화 */
+@media(hover:none){
+  .talent-card:active{box-shadow:var(--shadow-list);border-color:var(--brand-100)}
+  .btn:active{opacity:.8}
+  .rp-tab{-webkit-tap-highlight-color:transparent}
+}
 .pagination{display:flex;justify-content:center;align-items:center;gap:4px;padding:24px 0}.page-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border-default);border-radius:var(--r-4);font:500 13px/1 var(--font);color:var(--gray-700);cursor:pointer;background:var(--bg-base);transition:all .15s}.page-btn:hover{background:var(--gray-50)}.page-btn.active{background:var(--color-primary);color:#fff;border-color:var(--color-primary)}
+
+/* ══════════════════════════════════
+   이력서 모달 오버레이
+══════════════════════════════════ */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:500;display:none;align-items:flex-start;justify-content:flex-end}
+.modal-overlay.open{display:flex}
+
+/* 슬라이드 패널 */
+.resume-panel{width:680px;height:100vh;background:var(--bg-base);display:flex;flex-direction:column;overflow:hidden;box-shadow:var(--shadow-modal);transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1)}
+.modal-overlay.open .resume-panel{transform:translateX(0)}
+
+/* ══════════════════════════════════
+   반응형 — 태블릿 (768px ~ 1023px)
+══════════════════════════════════ */
+@media(min-width:768px) and (max-width:1023px){
+  .header{padding:0 20px}
+  .control-bar{padding:0 20px}
+  .filter-bar{padding:0 20px}
+  .active-filter-bar{padding:10px 20px}
+  .content{padding:20px}
+  .resume-panel{width:520px}
+  .search-box{width:240px}
+  .check-wrap span{font-size:12px}
+}
+
+/* ══════════════════════════════════
+   반응형 — 모바일 (≤ 767px)
+══════════════════════════════════ */
+@media(max-width:767px){
+  /* ── 헤더 ── */
+  .header{height:52px;padding:0 16px;gap:8px}
+  .header-title{font-size:16px}
+  .header-count{display:none}
+  .header .btn-primary{height:32px;font-size:12px;padding:0 10px;gap:4px}
+
+  /* ── 컨트롤 바 ── */
+  .control-bar{height:auto;padding:8px 16px;flex-wrap:nowrap;gap:8px}
+  .control-bar .btn:first-child{flex-shrink:0;height:40px;font-size:12px;padding:0 10px}
+  .check-wrap{display:none}
+  .control-bar .spacer{display:none}
+  .search-box{width:auto;flex:1;height:40px;order:unset}
+
+  /* ── 필터/활성필터 바 ── */
+  .filter-bar{padding:0 16px;height:44px;gap:5px}
+  .filter-bar .btn{padding:0 9px;font-size:12px;height:30px;border-radius:var(--r-999)}
+  .filter-bar .spacer,.filter-bar .btn:last-child{display:none}
+  .active-filter-bar{padding:8px 16px;gap:5px}
+  .active-chip{font-size:11px;height:24px;padding:0 7px}
+
+  /* ── 콘텐츠 ── */
+  .content{padding:12px 16px;gap:10px}
+  .result-meta{font-size:13px}
+
+  /* ── TOP TALENTS — 모바일 가로 스크롤 미니 카드 ── */
+  .top-section{padding:10px 12px}
+  .top-title{font-size:12px;margin-bottom:8px}
+  .top-cards .talent-card{width:190px !important;padding:10px 12px !important;gap:8px}
+  .top-cards .avatar{width:30px;height:30px;font-size:11px}
+  .top-cards .card-name{font-size:13px}
+  .top-cards .card-info{font-size:11px}
+  .top-cards .updated{font-size:10px;margin-bottom:4px}
+  .top-cards .tags{margin-top:3px;gap:2px}
+  .top-cards .tag-job,.top-cards .tag-skill{font-size:10px;padding:1px 5px}
+
+  /* ── 인재 카드 — 모바일 세로 레이아웃 ── */
+  .talent-card{
+    padding:14px 16px;
+    flex-direction:column;
+    gap:0;
+    border-radius:var(--r-6);
+  }
+  .card-row-top{gap:10px}
+  .avatar{width:36px;height:36px;font-size:13px}
+  .card-main{gap:5px}
+  .row1{gap:5px}
+  .card-name{font-size:15px}
+  .card-info{font-size:13px}
+  .card-age{font-size:12px}
+  .updated{font-size:11px;margin-bottom:6px}
+  .sec{gap:5px}
+  .sec-label{font-size:12px;min-width:28px}
+  .career-row{font-size:13px;gap:5px}
+  .tags{margin-top:6px;gap:3px}
+  .chips{margin-top:6px;gap:4px}
+  .chip{height:22px;font-size:11px;padding:0 7px}
+  .expand-panel{padding:10px 12px}
+  .exp-item{font-size:12px}
+
+  /* ── 액션 영역 — 카드 하단 가로 배치 ── */
+  .action{
+    width:100%;
+    flex-direction:row;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    margin-top:12px;
+    padding-top:11px;
+    border-top:1px solid var(--gray-100);
+  }
+  .action-top{
+    flex-direction:row;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:6px;
+    width:auto;
+    flex:1;
+  }
+  .propose-btn{
+    width:auto;
+    padding:0 14px;
+    height:36px;
+    font-size:12px;
+  }
+  .prop-hist{
+    flex-direction:row;
+    align-items:center;
+    gap:5px;
+  }
+  .prop-date{font-size:11px}
+  .viewed-lbl{display:none}
+  .exp-btn{flex-shrink:0;width:32px;height:32px}
+
+  /* ── 페이지네이션 ── */
+  .pagination{padding:16px 0;gap:3px}
+  .page-btn{width:28px;height:28px;font-size:12px}
+
+  /* ══════════════════════════════════
+     이력서 모달 — 바텀 시트
+  ══════════════════════════════════ */
+  .modal-overlay{
+    align-items:flex-end;
+    justify-content:stretch;
+  }
+  .resume-panel{
+    width:100%;
+    height:92svh;
+    border-radius:20px 20px 0 0;
+    transform:translateY(100%);
+    transition:transform .3s cubic-bezier(.4,0,.2,1);
+  }
+  .modal-overlay.open .resume-panel{transform:translateY(0)}
+
+  /* 드래그 핸들 */
+  .rp-header{
+    position:relative;
+    padding:22px 16px 14px;
+    gap:8px;
+  }
+  .rp-header::before{
+    content:'';
+    position:absolute;
+    top:8px;left:50%;
+    transform:translateX(-50%);
+    width:36px;height:4px;
+    background:var(--gray-200);
+    border-radius:2px;
+  }
+  .rp-close{width:28px;height:28px;font-size:13px}
+  .rp-nav-btn{width:28px;height:28px;font-size:12px}
+  .rp-nav-info{font-size:11px}
+
+  /* 탭 */
+  .rp-tabs{padding:0 16px}
+  .rp-tab{font-size:13px;margin-right:14px;height:40px}
+
+  /* 바디 */
+  .rp-body{padding:16px}
+
+  /* 프로필 */
+  .rp-profile{gap:12px;margin-bottom:16px}
+  .rp-avatar-lg{width:50px;height:50px;font-size:18px;flex-shrink:0}
+  .rp-name{font-size:18px;margin-bottom:5px}
+  .rp-meta{gap:6px;margin-bottom:6px}
+  .rp-meta-item{font-size:13px}
+  .rp-badges{gap:4px}
+
+  /* 매칭 바 */
+  .rp-match-bar{
+    padding:12px 14px;
+    margin-bottom:16px;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .rp-match-score{font-size:24px}
+  .rp-match-chips{margin-left:0;gap:4px;flex:none;width:100%}
+  .rp-chip{height:22px;font-size:11px;padding:0 7px}
+
+  /* 섹션 */
+  .rp-section{margin-bottom:20px}
+  .rp-section-title{font-size:13px;margin-bottom:10px}
+
+  /* 경력 타임라인 */
+  .career-company{font-size:14px}
+  .career-role{font-size:12px}
+  .career-period{font-size:11px}
+  .career-desc{font-size:12px;padding:8px 10px}
+  .career-tag{font-size:11px}
+
+  /* 학력 */
+  .edu-school{font-size:13px}
+  .edu-major{font-size:12px}
+  .edu-period{font-size:11px}
+
+  /* 스킬 */
+  .skill-item{font-size:12px;padding:5px 10px}
+
+  /* 희망조건 */
+  .condition-grid{grid-template-columns:1fr 1fr;gap:8px}
+  .condition-item{padding:10px 12px}
+  .condition-label{font-size:11px}
+  .condition-value{font-size:13px}
+
+  /* 자기소개 */
+  .intro-box{font-size:13px;line-height:20px;padding:12px}
+
+  /* 푸터 */
+  .rp-footer{
+    padding:12px 16px;
+    padding-bottom:max(12px, env(safe-area-inset-bottom));
+    gap:8px;
+  }
+  .rp-footer .btn{height:44px;font-size:14px;border-radius:var(--r-8)}
+}
+
+/* 패널 헤더 */
+.rp-header{display:flex;align-items:center;gap:12px;padding:20px 24px;border-bottom:1px solid var(--border-default);flex-shrink:0}
+.rp-close{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border-default);border-radius:var(--r-6);cursor:pointer;font-size:16px;color:var(--gray-600);background:var(--bg-base);transition:background .15s;flex-shrink:0}.rp-close:hover{background:var(--gray-50)}
+.rp-nav{display:flex;align-items:center;gap:8px;margin-left:auto}
+.rp-nav-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border-default);border-radius:var(--r-6);cursor:pointer;font-size:14px;color:var(--gray-600);background:var(--bg-base);transition:background .15s}.rp-nav-btn:hover{background:var(--gray-50)}.rp-nav-btn:disabled{opacity:.35;cursor:default}
+.rp-nav-info{font:400 13px/1 var(--font);color:var(--gray-500)}
+
+/* 패널 탭 */
+.rp-tabs{display:flex;border-bottom:1px solid var(--border-default);padding:0 24px;flex-shrink:0}
+.rp-tab{height:44px;display:flex;align-items:center;padding:0 4px;margin-right:20px;font:500 14px/1 var(--font);color:var(--gray-500);cursor:pointer;border-bottom:2px solid transparent;transition:color .15s,border-color .15s}
+.rp-tab.active{color:var(--color-primary);border-color:var(--color-primary)}
+
+/* 패널 바디 */
+.rp-body{flex:1;overflow-y:auto;padding:24px}
+.rp-body::-webkit-scrollbar{width:4px}.rp-body::-webkit-scrollbar-track{background:transparent}.rp-body::-webkit-scrollbar-thumb{background:var(--gray-200);border-radius:4px}
+
+/* ── 프로필 섹션 ── */
+.rp-profile{display:flex;gap:16px;align-items:flex-start;margin-bottom:24px}
+.rp-avatar-lg{width:64px;height:64px;border-radius:50%;background:var(--brand-50);color:var(--color-primary);display:flex;align-items:center;justify-content:center;font:700 22px/1 var(--font);flex-shrink:0}
+.rp-profile-info{flex:1}
+.rp-name{font:700 22px/1 var(--font);color:var(--gray-950);margin-bottom:6px}
+.rp-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.rp-meta-item{font:400 14px/1 var(--font);color:var(--gray-700)}
+.rp-meta-dot{width:3px;height:3px;border-radius:50%;background:var(--gray-400)}
+.rp-badges{display:flex;gap:6px;flex-wrap:wrap}
+.rp-status-row{margin-top:6px;display:flex;align-items:center;gap:8px}
+.rp-update{font:400 12px/1 var(--font);color:var(--gray-500)}
+
+/* ── 매칭 지표 바 ── */
+.rp-match-bar{background:var(--brand-50);border:1px solid var(--brand-100);border-radius:var(--r-8);padding:14px 20px;margin-bottom:24px;display:flex;align-items:center;gap:16px}
+.rp-match-score{font:700 28px/1 var(--font);color:var(--color-primary)}
+.rp-match-label{font:400 13px/1 var(--font);color:var(--gray-600)}
+.rp-match-chips{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
+.rp-chip{display:inline-flex;align-items:center;gap:4px;height:26px;padding:0 8px;border:1px solid var(--brand-100);border-radius:var(--r-999);font:600 12px/1 var(--font);color:var(--color-primary);background:var(--bg-base)}
+
+/* ── 섹션 공통 ── */
+.rp-section{margin-bottom:28px}
+.rp-section-title{font:700 15px/1 var(--font);color:var(--gray-950);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.rp-section-title::after{content:'';flex:1;height:1px;background:var(--gray-100)}
+
+/* 경력 아이템 */
+.career-item{display:flex;gap:14px;margin-bottom:20px}
+.career-item:last-child{margin-bottom:0}
+.career-dot-col{display:flex;flex-direction:column;align-items:center;gap:0;width:12px;flex-shrink:0;margin-top:3px}
+.career-dot{width:10px;height:10px;border-radius:50%;background:var(--color-primary);border:2px solid var(--bg-base);box-shadow:0 0 0 2px var(--color-primary)}
+.career-line{width:2px;flex:1;background:var(--gray-200);margin-top:4px}
+.career-content{flex:1}
+.career-company{font:700 15px/1 var(--font);color:var(--gray-950);margin-bottom:4px}
+.career-role{font:500 13px/1 var(--font);color:var(--gray-700);margin-bottom:3px}
+.career-period{font:400 12px/1 var(--font);color:var(--gray-500);margin-bottom:8px}
+.career-tags{display:flex;gap:4px;flex-wrap:wrap}
+.career-tag{background:var(--gray-100);color:var(--gray-700);border-radius:var(--r-4);padding:2px 7px;font:400 12px/18px var(--font)}
+.career-desc{font:400 13px/20px var(--font);color:var(--gray-600);margin-top:6px;padding:8px 12px;background:var(--bg-surface);border-radius:var(--r-6)}
+.career-status-badge{display:inline-flex;align-items:center;padding:2px 7px;border-radius:var(--r-4);font:600 11px/1 var(--font)}.career-status-badge.on{background:var(--green-50);color:var(--green-500)}.career-status-badge.off{background:var(--gray-100);color:var(--gray-600)}
+
+/* 학력 아이템 */
+.edu-item{display:flex;gap:14px;margin-bottom:16px}
+.edu-icon{width:36px;height:36px;border-radius:var(--r-6);background:var(--gray-100);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.edu-content{flex:1}
+.edu-school{font:700 14px/1 var(--font);color:var(--gray-950);margin-bottom:4px}
+.edu-major{font:400 13px/1 var(--font);color:var(--gray-700);margin-bottom:3px}
+.edu-period{font:400 12px/1 var(--font);color:var(--gray-500)}
+.edu-status{font:600 12px/1 var(--font);margin-left:6px}
+
+/* 스킬 */
+.skill-grid{display:flex;flex-wrap:wrap;gap:8px}
+.skill-item{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--r-999);font:500 13px/1 var(--font);color:var(--gray-800)}
+.skill-level{font:400 11px/1 var(--font);color:var(--gray-500)}
+
+/* 희망 조건 */
+.condition-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.condition-item{background:var(--bg-surface);border-radius:var(--r-8);padding:14px 16px}
+.condition-label{font:400 12px/1 var(--font);color:var(--gray-500);margin-bottom:6px}
+.condition-value{font:600 14px/1 var(--font);color:var(--gray-950)}
+.condition-value.primary{color:var(--color-primary)}
+
+/* 자기소개 */
+.intro-box{background:var(--bg-surface);border-radius:var(--r-8);padding:16px;font:400 14px/22px var(--font);color:var(--gray-700)}
+
+/* ── 패널 푸터 (액션 영역) ── */
+.rp-footer{border-top:1px solid var(--border-default);padding:16px 24px;display:flex;gap:10px;flex-shrink:0;background:var(--bg-base)}
+.rp-footer .btn{height:40px;flex:1;justify-content:center;font-size:14px}
 </style>
 </head>
 <body>
 <div class="page">
-<header class="header"><span class="header-title">인재 검색</span><span class="header-count">1,240건 보유</span><div class="spacer"></div><button class="btn btn-primary" style="height:36px">포지션 제안 상품</button></header>
-<div class="control-bar"><button class="btn" style="height:32px">업데이트일순</button><label class="check-wrap"><input type="checkbox"><span style="font:400 13px/1 var(--font);color:var(--gray-700);margin-left:6px">포지션 제안한 인재 제외</span></label><div class="spacer"></div><div class="search-box"><select class="search-select"><option>이름</option><option>직무</option><option>스킬</option></select><div class="search-divider"></div><input class="search-input" placeholder="검색어를 입력하세요"></div></div>
-<div class="filter-bar"><button class="btn" style="height:32px">거주지</button><button class="btn" style="height:32px">희망 근무지</button><button class="btn" style="height:32px">직무</button><button class="btn" style="height:32px">스킬</button><button class="btn" style="height:32px">경력</button><button class="btn" style="height:32px">나이</button><button class="btn" style="height:32px">성별</button><button class="btn" style="height:32px">학력</button><button class="btn" style="height:32px">구직상태</button><button class="btn" style="height:32px;color:var(--gray-600)">+ 필터 추가</button><div class="spacer"></div><button class="btn" style="height:32px">검색조건 불러오기</button></div>
-<div class="active-filter-bar"><span class="active-chip">서울 X</span><span class="active-chip">UI/UX 디자이너 X</span><span class="active-chip">경력 3~7년 X</span><span class="active-chip">Figma X</span></div>
+
+<!-- ── 헤더 ── -->
+<header class="header">
+  <span class="header-title">인재 검색</span>
+  <span class="header-count">1,240건 보유</span>
+  <div class="spacer"></div>
+  <button class="btn btn-primary" style="height:36px">포지션 제안 상품</button>
+</header>
+
+<!-- ── 컨트롤 바 ── -->
+<div class="control-bar">
+  <button class="btn" style="height:32px">업데이트일순 ▾</button>
+  <label class="check-wrap"><input type="checkbox"><span style="font:400 13px/1 var(--font);color:var(--gray-700);margin-left:6px">포지션 제안한 인재 제외</span></label>
+  <div class="spacer"></div>
+  <div class="search-box">
+    <select class="search-select"><option>이름</option><option>직무</option><option>스킬</option></select>
+    <div class="search-divider"></div>
+    <input class="search-input" placeholder="검색어를 입력하세요">
+    <span style="color:var(--gray-400);font-size:14px">🔍</span>
+  </div>
+</div>
+
+<!-- ── 필터 바 ── -->
+<div class="filter-bar">
+  <button class="btn" style="height:32px">거주지 ▾</button>
+  <button class="btn" style="height:32px">희망 근무지 ▾</button>
+  <button class="btn" style="height:32px">직무 ▾</button>
+  <button class="btn" style="height:32px">스킬 ▾</button>
+  <button class="btn" style="height:32px">경력 ▾</button>
+  <button class="btn" style="height:32px">나이 ▾</button>
+  <button class="btn" style="height:32px">성별 ▾</button>
+  <button class="btn" style="height:32px">학력 ▾</button>
+  <button class="btn" style="height:32px">구직상태 ▾</button>
+  <button class="btn" style="height:32px;color:var(--gray-600)">+ 필터 추가</button>
+  <div class="spacer"></div>
+  <button class="btn" style="height:32px">📋 검색조건 불러오기</button>
+</div>
+
+<!-- ── 활성 필터 칩 ── -->
+<div class="active-filter-bar">
+  <span class="active-chip">서울 ✕</span>
+  <span class="active-chip">UI/UX 디자이너 ✕</span>
+  <span class="active-chip">경력 3~7년 ✕</span>
+  <span class="active-chip">Figma ✕</span>
+</div>
+
+<!-- ── 콘텐츠 ── -->
 <div class="content">
-<p class="result-meta">총 <strong>1,240명</strong></p>
-<div class="top-section"><div class="top-title">TOP TALENTS - 조건에 가장 잘 맞는 인재</div><div class="top-cards"><div class="talent-card" style="width:280px;flex-shrink:0;padding:16px"><div class="avatar avatar-ok">A</div><div class="card-main"><div class="row1"><span class="card-name">김민지</span><span class="card-info">여 1992</span><span class="badge badge-violet">응답률 높음</span></div><div class="updated">2시간 전</div><div class="tags"><span class="tag-job">UI/UX 디자이너</span><span class="tag-div"></span><span class="tag-skill">Figma</span></div></div></div><div class="talent-card" style="width:280px;flex-shrink:0;padding:16px"><div class="avatar avatar-ok">B</div><div class="card-main"><div class="row1"><span class="card-name">이준호</span><span class="card-info">남 1990</span><span class="badge badge-green">최근 활동</span></div><div class="updated">1일 전</div><div class="tags"><span class="tag-job">프로덕트 디자이너</span><span class="tag-div"></span><span class="tag-skill">Figma</span></div></div></div></div></div>
-<div class="card-list">
-<div class="talent-card"><div class="avatar avatar-ok">A</div><div class="card-main"><div class="row1"><span class="card-name">김민지</span><span class="card-info">여 1992</span><span class="card-age">(만 32세)</span><span class="card-info">경력 5년 3개월</span><span class="badge badge-violet">응답률 높음</span><span class="badge badge-green">최근 활동</span><span class="badge badge-gray">적극적 구직 중</span></div><div class="updated">2025.06.10 업데이트</div><div class="sec"><span class="sec-label">경력</span><div class="sec-body"><div class="career-row"><strong>카카오</strong><span class="pipe"></span><span>프로덕트 디자인팀 시니어</span><span class="pipe"></span><span>2021.03~현재</span><span class="pipe"></span><span class="status-on">재직중</span></div></div></div><div class="sec" style="margin-top:4px"><span class="sec-label">학력</span><div class="sec-body"><div class="career-row"><span>홍익대학교</span><span class="pipe"></span><span>시각디자인학과 학사</span><span class="pipe"></span><span style="color:#858585">졸업</span></div></div></div><div class="sec" style="margin-top:4px"><span class="sec-label">희망</span><span style="font:400 14px/1 var(--font);color:#222">서울 500만원</span></div><div class="tags" style="margin-top:8px"><span class="tag-job">UI/UX 디자이너</span><span class="tag-job">프로덕트 디자이너</span><span class="tag-div"></span><span class="tag-skill">Figma</span><span class="tag-skill">Sketch</span><span class="tag-skill">Notion</span></div><div class="chips"><span class="chip">평균 근속 3년+</span><span class="chip">대기업 경력</span><span class="chip">요즘 뜨는 인재</span></div><div class="expand-panel" id="p1"><div class="exp-item"><span class="exp-dot"></span><span>네이버 서비스 기획팀 2019~2021</span></div></div></div><div class="action"><div class="action-top"><button class="btn btn-dark propose-btn">포지션 제안하기</button><div class="prop-hist"><span class="prop-date">25.03.15 제안</span><span class="badge badge-blue" style="font-size:11px">수락</span></div></div><button class="exp-btn" onclick="tog('p1',this)">v</button></div></div>
-<div class="talent-card viewed"><div class="avatar avatar-ok">B</div><div class="card-main"><div class="row1"><span class="card-name">이준호</span><span class="card-info">남 1990</span><span class="card-age">(만 34세)</span><span class="card-info">경력 7년 1개월</span><span class="badge badge-green">최근 활동</span><span class="badge badge-gray">이직 준비 중</span></div><div class="updated">2025.06.08 업데이트</div><div class="sec"><span class="sec-label">경력</span><div class="sec-body"><div class="career-row"><strong>삼성전자</strong><span class="pipe"></span><span>UX센터 책임</span><span class="pipe"></span><span>2020.07~현재</span><span class="pipe"></span><span class="status-on">재직중</span></div></div></div><div class="sec" style="margin-top:4px"><span class="sec-label">학력</span><div class="sec-body"><div class="career-row"><span>연세대학교</span><span class="pipe"></span><span>산업디자인학과 학사</span></div></div></div><div class="sec" style="margin-top:4px"><span class="sec-label">희망</span><span style="font:400 14px/1 var(--font);color:#222">서울 강남 600만원</span></div><div class="tags" style="margin-top:8px"><span class="tag-job">프로덕트 디자이너</span><span class="tag-div"></span><span class="tag-skill">Figma</span><span class="tag-skill">Adobe XD</span></div><div class="chips"><span class="chip">평균 근속 4년+</span><span class="chip">대기업 외국계</span></div><div class="expand-panel" id="p2"><div class="exp-item"><span class="exp-dot"></span><span>LG전자 HE사업본부 2018~2020</span></div></div></div><div class="action"><div class="action-top"><button class="btn btn-dark propose-btn">포지션 제안하기</button><div class="prop-hist"><span class="prop-date">25.04.02 제안</span><span class="badge badge-gray" style="font-size:11px">검토중</span></div><span class="viewed-lbl">열람한 인재</span></div><button class="exp-btn" onclick="tog('p2',this)">v</button></div></div>
-<div class="talent-card"><div class="avatar avatar-lock">잠</div><div class="card-main"><div class="row1"><span class="card-name">박**</span><span class="card-info">여 1994</span><span class="card-age">(만 30세)</span><span class="card-info">경력 3년 6개월</span><span class="badge badge-violet">응답률 높음</span><span class="badge badge-gray">구직 중</span></div><div class="updated">2025.06.09 업데이트</div><div class="sec"><span class="sec-label">경력</span><div class="sec-body"><div class="career-row"><strong class="secret">****</strong><span class="pipe"></span><span>디자인팀 주임</span><span class="pipe"></span><span class="status-on">재직중</span></div></div></div><div class="sec" style="margin-top:4px"><span class="sec-label">희망</span><span style="font:400 14px/1 var(--font);color:#222">서울 450만원</span></div><div class="tags" style="margin-top:8px"><span class="tag-job">UX 디자이너</span><span class="tag-div"></span><span class="tag-skill">Figma</span><span class="tag-skill">Protopie</span></div><div class="chips"><span class="chip">지인 추천</span><span class="chip">요즘 뜨는 인재</span></div></div><div class="action"><div class="action-top"><button class="btn btn-dark propose-btn">포지션 제안하기</button></div><button class="exp-btn">v</button></div></div>
-<div class="talent-card dim-1"><div class="avatar avatar-lock">잠</div><div class="card-main"><div class="row1"><span class="card-name">최**</span><span class="card-info">남 1988</span><span class="card-age">(만 36세)</span><span class="card-info">경력 9년 2개월</span><span class="badge badge-gray">휴직 중</span></div><div class="updated">2025.05.20 업데이트</div><div class="sec"><span class="sec-label">경력</span><div class="sec-body"><div class="career-row"><strong class="secret">****</strong><span class="pipe"></span><span>디자인본부 수석</span><span class="pipe"></span><span class="status-off">퇴사</span></div></div></div><div class="sec" style="margin-top:4px"><span class="sec-label">희망</span><span style="font:400 14px/1 var(--font);color:#222">서울 700만원</span></div><div class="tags" style="margin-top:8px"><span class="tag-job">디자인 리드</span><span class="tag-div"></span><span class="tag-skill">Figma</span></div><div class="chips"><span class="chip">평균 근속 5년+</span><span class="chip">대기업 중견기업</span></div></div><div class="action"><div class="action-top"><button class="btn btn-dark propose-btn" disabled style="opacity:.5;cursor:not-allowed">포지션 제안하기</button><div class="prop-hist"><span class="prop-date">25.02.10 제안</span><span class="badge badge-red" style="font-size:11px">거절</span></div></div><button class="exp-btn">v</button></div></div>
+  <p class="result-meta">총 <strong>1,240명</strong></p>
+
+  <!-- TOP TALENTS -->
+  <div class="top-section">
+    <div class="top-title">⭐ TOP TALENTS — 조건에 가장 잘 맞는 인재</div>
+    <div class="top-cards">
+      <div class="talent-card" style="width:280px;flex-shrink:0;padding:16px" onclick="openResume(0)">
+        <div class="avatar avatar-ok">김</div>
+        <div class="card-main">
+          <div class="row1"><span class="card-name">김민지</span><span class="card-info">여 1992</span><span class="badge badge-violet">응답률 높음</span></div>
+          <div class="updated">2시간 전</div>
+          <div class="tags"><span class="tag-job">UI/UX 디자이너</span><span class="tag-div"></span><span class="tag-skill">Figma</span><span class="tag-skill">Sketch</span></div>
+        </div>
+      </div>
+      <div class="talent-card" style="width:280px;flex-shrink:0;padding:16px" onclick="openResume(1)">
+        <div class="avatar avatar-ok">이</div>
+        <div class="card-main">
+          <div class="row1"><span class="card-name">이준호</span><span class="card-info">남 1990</span><span class="badge badge-green">최근 활동</span></div>
+          <div class="updated">1일 전</div>
+          <div class="tags"><span class="tag-job">프로덕트 디자이너</span><span class="tag-div"></span><span class="tag-skill">Figma</span><span class="tag-skill">Zeplin</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 인재 카드 리스트 -->
+  <div class="card-list">
+
+    <!-- 카드 1 -->
+    <div class="talent-card" onclick="openResume(0)">
+      <div class="card-row-top" style="display:flex;gap:12px;flex:1;min-width:0">
+      <div class="avatar avatar-ok">김</div>
+      <div class="card-main">
+        <div class="row1"><span class="card-name">김민지</span><span class="card-info">여 1992</span><span class="card-age">(만 32세)</span><span class="card-info">경력 5년 3개월</span><span class="badge badge-violet">응답률 높음</span><span class="badge badge-green">최근 활동</span><span class="badge badge-gray">적극적 구직 중</span></div>
+        <div class="updated">2025.06.10 업데이트</div>
+        <div class="sec"><span class="sec-label">경력</span><div class="sec-body"><div class="career-row"><strong>카카오</strong><span class="pipe"></span><span>프로덕트 디자인팀 · 시니어</span><span class="pipe"></span><span>2021.03~현재</span><span class="pipe"></span><span class="status-on">재직중</span></div></div></div>
+        <div class="sec" style="margin-top:4px"><span class="sec-label">학력</span><div class="sec-body"><div class="career-row"><span>홍익대학교</span><span class="pipe"></span><span>시각디자인학과 학사</span><span class="pipe"></span><span style="color:#858585">졸업</span></div></div></div>
+        <div class="sec" style="margin-top:4px"><span class="sec-label">희망</span><span style="font:400 14px/1 var(--font);color:#222">서울 · 500만원</span></div>
+        <div class="tags" style="margin-top:8px"><span class="tag-job">UI/UX 디자이너</span><span class="tag-job">프로덕트 디자이너</span><span class="tag-div"></span><span class="tag-skill">Figma</span><span class="tag-skill">Sketch</span><span class="tag-skill">Notion</span></div>
+        <div class="chips"><span class="chip">💼 평균 근속 3년+</span><span class="chip">🏢 대기업 경력</span><span class="chip">⭐ 요즘 뜨는 인재</span></div>
+        <div class="expand-panel" id="ep1"><div class="exp-item"><span class="exp-dot"></span><span>네이버 · 서비스 기획팀 · 2019.01~2021.02</span></div></div>
+      </div>
+      </div><!-- /card-row-top -->
+      <div class="action">
+        <div class="action-top">
+          <button class="btn btn-dark propose-btn" onclick="event.stopPropagation()">포지션 제안하기</button>
+          <div class="prop-hist"><span class="prop-date">✓ 25.03.15 제안</span><span class="badge badge-blue" style="font-size:11px">수락</span></div>
+        </div>
+        <button class="exp-btn" onclick="event.stopPropagation();tog('ep1',this)">▼</button>
+      </div>
+    </div>
+
+    <!-- 카드 2 -->
+    <div class="talent-card viewed" onclick="openResume(1)">
+      <div class="card-row-top" style="display:flex;gap:12px;flex:1;min-width:0">
+      <div class="avatar avatar-ok">이</div>
+      <div class="card-main">
+        <div class="row1"><span class="card-name">이준호</span><span class="card-info">남 1990</span><span class="card-age">(만 34세)</span><span class="card-info">경력 7년 1개월</span><span class="badge badge-green">최근 활동</span><span class="badge badge-gray">이직 준비 중</span></div>
+        <div class="updated">2025.06.08 업데이트</div>
+        <div class="sec"><span class="sec-label">경력</span><div class="sec-body"><div class="career-row"><strong>삼성전자</strong><span class="pipe"></span><span>UX센터 · 책임</span><span class="pipe"></span><span>2020.07~현재</span><span class="pipe"></span><span class="status-on">재직중</span></div></div></div>
+        <div class="sec" style="margin-top:4px"><span class="sec-label">학력</span><div class="sec-body"><div class="career-row"><span>연세대학교</span><span class="pipe"></span><span>산업디자인학과 학사</span><span class="pipe"></span><span style="color:#858585">졸업</span></div></div></div>
+        <div class="sec" style="margin-top:4px"><span class="sec-label">희망</span><span style="font:400 14px/1 var(--font);color:#222">서울 강남 · 600만원</span></div>
+        <div class="tags" style="margin-top:8px"><span class="tag-job">프로덕트 디자이너</span><span class="tag-job">UX 디자이너</span><span class="tag-div"></span><span class="tag-skill">Figma</span><span class="tag-skill">Adobe XD</span></div>
+        <div class="chips"><span class="chip">💼 평균 근속 4년+</span><span class="chip">🏢 대기업·외국계</span><span class="chip">👀 최근 구직 활동</span></div>
+        <div class="expand-panel" id="ep2"><div class="exp-item"><span class="exp-dot"></span><span>LG전자 · HE사업본부 · 2018.02~2020.06</span></div></div>
+      </div>
+      </div><!-- /card-row-top -->
+      <div class="action">
+        <div class="action-top">
+          <button class="btn btn-dark propose-btn" onclick="event.stopPropagation()">포지션 제안하기</button>
+          <div class="prop-hist"><span class="prop-date">✓ 25.04.02 제안</span><span class="badge badge-gray" style="font-size:11px">검토중</span></div>
+          <span class="viewed-lbl">열람한 인재</span>
+        </div>
+        <button class="exp-btn" onclick="event.stopPropagation();tog('ep2',this)">▼</button>
+      </div>
+    </div>
+
+    <!-- 카드 3 (비공개) -->
+    <div class="talent-card" onclick="openResume(2)">
+      <div class="card-row-top" style="display:flex;gap:12px;flex:1;min-width:0">
+      <div class="avatar avatar-lock">🔒</div>
+      <div class="card-main">
+        <div class="row1"><span class="card-name">박**</span><span class="card-info">여 1994</span><span class="card-age">(만 30세)</span><span class="card-info">경력 3년 6개월</span><span class="badge badge-violet">응답률 높음</span><span class="badge badge-gray">구직 중</span></div>
+        <div class="updated">2025.06.09 업데이트</div>
+        <div class="sec"><span class="sec-label">경력</span><div class="sec-body"><div class="career-row"><strong class="secret">****</strong><span class="pipe"></span><span>디자인팀 · 주임</span><span class="pipe"></span><span class="status-on">재직중</span></div></div></div>
+        <div class="sec" style="margin-top:4px"><span class="sec-label">희망</span><span style="font:400 14px/1 var(--font);color:#222">서울 · 450만원</span></div>
+        <div class="tags" style="margin-top:8px"><span class="tag-job">UX 디자이너</span><span class="tag-div"></span><span class="tag-skill">Figma</span><span class="tag-skill">Protopie</span></div>
+        <div class="chips"><span class="chip">🌟 지인 추천</span><span class="chip">⭐ 요즘 뜨는 인재</span></div>
+      </div>
+      </div><!-- /card-row-top -->
+      <div class="action">
+        <div class="action-top"><button class="btn btn-dark propose-btn" onclick="event.stopPropagation()">포지션 제안하기</button></div>
+        <button class="exp-btn" onclick="event.stopPropagation()">▼</button>
+      </div>
+    </div>
+
+    <!-- 카드 4 (dim) -->
+    <div class="talent-card dim-1" onclick="openResume(3)">
+      <div class="card-row-top" style="display:flex;gap:12px;flex:1;min-width:0">
+      <div class="avatar avatar-lock">🔒</div>
+      <div class="card-main">
+        <div class="row1"><span class="card-name">최**</span><span class="card-info">남 1988</span><span class="card-age">(만 36세)</span><span class="card-info">경력 9년 2개월</span><span class="badge badge-gray">휴직 중</span></div>
+        <div class="updated">2025.05.20 업데이트</div>
+        <div class="sec"><span class="sec-label">경력</span><div class="sec-body"><div class="career-row"><strong class="secret">****</strong><span class="pipe"></span><span>디자인본부 · 수석</span><span class="pipe"></span><span class="status-off">퇴사</span></div></div></div>
+        <div class="sec" style="margin-top:4px"><span class="sec-label">희망</span><span style="font:400 14px/1 var(--font);color:#222">서울 · 700만원</span></div>
+        <div class="tags" style="margin-top:8px"><span class="tag-job">디자인 리드</span><span class="tag-div"></span><span class="tag-skill">Figma</span><span class="tag-skill">Principle</span></div>
+        <div class="chips"><span class="chip">💼 평균 근속 5년+</span><span class="chip">🏢 대기업·중견기업</span></div>
+      </div>
+      </div><!-- /card-row-top -->
+      <div class="action">
+        <div class="action-top">
+          <button class="btn btn-dark propose-btn" disabled style="opacity:.4;cursor:not-allowed" onclick="event.stopPropagation()">포지션 제안하기</button>
+          <div class="prop-hist"><span class="prop-date">✓ 25.02.10 제안</span><span class="badge badge-red" style="font-size:11px">거절</span></div>
+        </div>
+        <button class="exp-btn" onclick="event.stopPropagation()">▼</button>
+      </div>
+    </div>
+
+  </div><!-- /card-list -->
+
+  <div class="pagination">
+    <button class="page-btn">‹</button>
+    <button class="page-btn active">1</button>
+    <button class="page-btn">2</button>
+    <button class="page-btn">3</button>
+    <button class="page-btn">4</button>
+    <button class="page-btn">5</button>
+    <span style="color:var(--gray-400);font-size:13px">…</span>
+    <button class="page-btn">62</button>
+    <button class="page-btn">›</button>
+  </div>
 </div>
-<div class="pagination"><button class="page-btn">이전</button><button class="page-btn active">1</button><button class="page-btn">2</button><button class="page-btn">3</button><button class="page-btn">4</button><button class="page-btn">5</button><button class="page-btn">62</button><button class="page-btn">다음</button></div>
+</div><!-- /page -->
+
+<!-- ══════════════════════════════════
+     이력서 상세 모달
+══════════════════════════════════ -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="resume-panel" id="resumePanel">
+
+    <!-- 모바일 드래그 핸들 -->
+    <div id="rpDragHandle" style="display:none;justify-content:center;padding:12px 0 4px;flex-shrink:0;cursor:grab">
+      <div style="width:36px;height:4px;border-radius:2px;background:var(--gray-300)"></div>
+    </div>
+
+    <!-- 패널 헤더 -->
+    <div class="rp-header">
+      <button class="rp-close" onclick="closeResume()">✕</button>
+      <span style="font:600 14px/1 var(--font);color:var(--gray-700)" id="rpHeaderName">이력서</span>
+      <div class="rp-nav">
+        <span class="rp-nav-info" id="rpNavInfo">1 / 4</span>
+        <button class="rp-nav-btn" id="rpPrev" onclick="navigateResume(-1)">‹</button>
+        <button class="rp-nav-btn" id="rpNext" onclick="navigateResume(1)">›</button>
+      </div>
+    </div>
+
+    <!-- 탭 -->
+    <div class="rp-tabs">
+      <div class="rp-tab active" onclick="switchTab('resume',this)">이력서</div>
+      <div class="rp-tab" onclick="switchTab('proposal',this)">제안 이력</div>
+      <div class="rp-tab" onclick="switchTab('memo',this)">메모</div>
+    </div>
+
+    <!-- 바디 -->
+    <div class="rp-body" id="rpBody">
+      <!-- JS로 동적 렌더링 -->
+    </div>
+
+    <!-- 푸터 -->
+    <div class="rp-footer">
+      <button class="btn btn-outline" onclick="closeResume()">닫기</button>
+      <button class="btn btn-dark" id="rpProposeBtn">포지션 제안하기</button>
+    </div>
+
+  </div>
 </div>
-</div>
-<script>function tog(id,btn){const p=document.getElementById(id);if(!p)return;p.classList.toggle('open');btn.classList.toggle('open')}document.querySelectorAll('.page-btn').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.page-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active')}))</script>
+
+<script>
+// ── 인재 데이터 ──────────────────────────────────────
+const talents = [
+  {
+    idx: 0,
+    name: '김민지', gender: '여', birth: '1992', age: 32,
+    career: '5년 3개월', viewState: 'accepted',
+    badges: ['응답률 높음','최근 활동','적극적 구직 중'],
+    updatedAt: '2025.06.10',
+    matchScore: 92,
+    matchChips: ['경력 일치','희망 급여 일치','근무지 일치'],
+    intro: '사용자 중심의 UI/UX 디자인을 추구합니다. 카카오에서 프로덕트 디자인을 리드하며 데이터 기반 의사결정과 팀 협업 경험을 쌓았습니다. 복잡한 문제를 단순하고 직관적인 경험으로 풀어내는 것을 좋아합니다.',
+    careers: [
+      { company: '카카오', dept: '프로덕트 디자인팀', role: '시니어 디자이너', period: '2021.03 ~ 현재', isActive: true, tags: ['Product Design','Design System','리서치'], desc: '카카오맵 앱 전반의 UX 개선 및 디자인 시스템 구축. 월간 활성 사용자 15% 향상에 기여.' },
+      { company: '네이버', dept: '서비스 기획팀', role: 'UX 디자이너', period: '2019.01 ~ 2021.02', isActive: false, tags: ['UX Design','Prototyping','User Research'], desc: '네이버 쇼핑 모바일 앱 리뉴얼 프로젝트 참여. A/B 테스트 설계 및 분석 담당.' },
+    ],
+    educations: [{ school: '홍익대학교', major: '시각디자인학과', degree: '학사', period: '2011 ~ 2015', status: '졸업' }],
+    skills: [{ name: 'Figma', level: '상급' },{ name: 'Sketch', level: '중급' },{ name: 'Notion', level: '중급' },{ name: 'Zeplin', level: '중급' },{ name: 'After Effects', level: '초급' }],
+    desired: { location: '서울 전체', salary: '500만원 이상', type: '정규직', jobType: 'UI/UX 디자이너' },
+    proposalStatus: 'accepted',
+    proposalDate: '25.03.15',
+  },
+  {
+    idx: 1,
+    name: '이준호', gender: '남', birth: '1990', age: 34,
+    career: '7년 1개월', viewState: 'purchased',
+    badges: ['최근 활동','이직 준비 중'],
+    updatedAt: '2025.06.08',
+    matchScore: 88,
+    matchChips: ['경력 일치','대기업 경력'],
+    intro: '삼성전자 UX센터에서 7년간 모바일·TV 제품 UX를 담당했습니다. 글로벌 시장을 대상으로 한 다국어 UI 경험과 하드웨어-소프트웨어 협업 프로세스에 강점이 있습니다.',
+    careers: [
+      { company: '삼성전자', dept: 'UX센터', role: '책임 디자이너', period: '2020.07 ~ 현재', isActive: true, tags: ['Mobile UX','TV UX','글로벌'], desc: 'Galaxy 시리즈 One UI 기획 및 디자인 참여. 35개국 현지화 UI 가이드라인 수립.' },
+      { company: 'LG전자', dept: 'HE사업본부', role: 'UX 디자이너', period: '2018.02 ~ 2020.06', isActive: false, tags: ['TV UX','WebOS'], desc: 'LG ThinQ TV 메뉴 UX 개편. 사용자 테스트 30회 이상 진행.' },
+    ],
+    educations: [{ school: '연세대학교', major: '산업디자인학과', degree: '학사', period: '2009 ~ 2013', status: '졸업' }],
+    skills: [{ name: 'Figma', level: '상급' },{ name: 'Adobe XD', level: '상급' },{ name: 'Zeplin', level: '중급' },{ name: 'Jira', level: '중급' },{ name: 'Confluence', level: '중급' }],
+    desired: { location: '서울 강남', salary: '600만원 이상', type: '정규직', jobType: '프로덕트 디자이너' },
+    proposalStatus: 'pending',
+    proposalDate: '25.04.02',
+  },
+  {
+    idx: 2,
+    name: '박**', gender: '여', birth: '1994', age: 30,
+    career: '3년 6개월', viewState: 'notPurchased',
+    badges: ['응답률 높음','구직 중'],
+    updatedAt: '2025.06.09',
+    matchScore: 75,
+    matchChips: ['스킬 일치'],
+    intro: '이 인재의 상세 정보를 열람하려면 포지션 제안 상품이 필요합니다.',
+    careers: [],
+    educations: [{ school: '4년제 대학', major: '디자인 계열', degree: '학사', period: '-', status: '졸업' }],
+    skills: [{ name: 'Figma', level: '-' },{ name: 'Protopie', level: '-' },{ name: 'After Effects', level: '-' }],
+    desired: { location: '서울', salary: '450만원 이상', type: '정규직', jobType: 'UX 디자이너' },
+    proposalStatus: null,
+    proposalDate: null,
+    locked: true,
+  },
+  {
+    idx: 3,
+    name: '최**', gender: '남', birth: '1988', age: 36,
+    career: '9년 2개월', viewState: 'notPurchased',
+    badges: ['휴직 중'],
+    updatedAt: '2025.05.20',
+    matchScore: 70,
+    matchChips: ['경력 일치','대기업 경력'],
+    intro: '이 인재의 상세 정보를 열람하려면 포지션 제안 상품이 필요합니다.',
+    careers: [],
+    educations: [{ school: '4년제 대학', major: '디자인 계열', degree: '학사', period: '-', status: '졸업' }],
+    skills: [{ name: 'Figma', level: '-' },{ name: 'Principle', level: '-' }],
+    desired: { location: '서울', salary: '700만원 이상', type: '정규직', jobType: '디자인 리드' },
+    proposalStatus: 'rejected',
+    proposalDate: '25.02.10',
+    locked: true,
+  },
+];
+
+let currentIdx = 0;
+let currentTab = 'resume';
+
+// ── 모달 열기/닫기 ──────────────────────────────────
+function openResume(idx) {
+  currentIdx = idx;
+  currentTab = 'resume';
+  renderPanel();
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeResume() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeResume();
+}
+function navigateResume(dir) {
+  const next = currentIdx + dir;
+  if (next < 0 || next >= talents.length) return;
+  currentIdx = next;
+  renderPanel();
+}
+
+// ── 탭 전환 ──────────────────────────────────────────
+function switchTab(tab, el) {
+  currentTab = tab;
+  document.querySelectorAll('.rp-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  renderPanelBody();
+}
+
+// ── 패널 렌더링 ──────────────────────────────────────
+function renderPanel() {
+  const t = talents[currentIdx];
+  // 헤더
+  document.getElementById('rpHeaderName').textContent = t.name + ' 이력서';
+  document.getElementById('rpNavInfo').textContent = (currentIdx + 1) + ' / ' + talents.length;
+  document.getElementById('rpPrev').disabled = currentIdx === 0;
+  document.getElementById('rpNext').disabled = currentIdx === talents.length - 1;
+  // 푸터 버튼
+  const propBtn = document.getElementById('rpProposeBtn');
+  if (t.proposalStatus === 'accepted') {
+    propBtn.textContent = '✓ 제안 수락됨';
+    propBtn.disabled = true; propBtn.style.opacity = '.6';
+  } else if (t.proposalStatus === 'rejected') {
+    propBtn.textContent = '✗ 제안 거절됨';
+    propBtn.disabled = true; propBtn.style.opacity = '.6';
+  } else {
+    propBtn.textContent = '포지션 제안하기';
+    propBtn.disabled = false; propBtn.style.opacity = '1';
+  }
+  // 탭 초기화
+  document.querySelectorAll('.rp-tab').forEach((tab, i) => {
+    tab.classList.toggle('active', i === 0);
+  });
+  currentTab = 'resume';
+  renderPanelBody();
+}
+
+function renderPanelBody() {
+  const t = talents[currentIdx];
+  const body = document.getElementById('rpBody');
+  if (currentTab === 'resume') {
+    body.innerHTML = renderResumeTab(t);
+  } else if (currentTab === 'proposal') {
+    body.innerHTML = renderProposalTab(t);
+  } else {
+    body.innerHTML = renderMemoTab(t);
+  }
+}
+
+// ── 이력서 탭 ─────────────────────────────────────────
+function renderResumeTab(t) {
+  const badgeMap = { '응답률 높음': 'badge-violet', '최근 활동': 'badge-green', '적극적 구직 중': 'badge-gray', '이직 준비 중': 'badge-gray', '구직 중': 'badge-gray', '휴직 중': 'badge-gray' };
+  const badgesHTML = t.badges.map(b => `<span class="badge ${badgeMap[b]||'badge-gray'}">${b}</span>`).join('');
+  const matchChipsHTML = t.matchChips.map(c => `<span class="rp-chip">✓ ${c}</span>`).join('');
+  const lockNotice = t.locked ? `<div style="background:var(--gray-50);border:1px dashed var(--gray-300);border-radius:var(--r-8);padding:20px;text-align:center;margin-bottom:24px"><div style="font:700 14px/1 var(--font);color:var(--gray-700);margin-bottom:8px">🔒 이력서 열람 불가</div><div style="font:400 13px/20px var(--font);color:var(--gray-500);margin-bottom:14px">포지션 제안 상품 구매 후 열람 가능합니다.</div><button class="btn btn-primary" style="height:36px;margin:0 auto">포지션 제안 상품 보기</button></div>` : '';
+  const careersHTML = t.careers.length ? t.careers.map((c, i) => `
+    <div class="career-item">
+      <div class="career-dot-col">
+        <div class="career-dot"></div>
+        ${i < t.careers.length - 1 ? '<div class="career-line"></div>' : ''}
+      </div>
+      <div class="career-content">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px">
+          <span class="career-company">${c.company}</span>
+          <span class="career-status-badge ${c.isActive?'on':'off'}">${c.isActive?'재직중':'퇴사'}</span>
+        </div>
+        <div class="career-role">${c.dept} · ${c.role}</div>
+        <div class="career-period">${c.period}</div>
+        <div class="career-tags">${c.tags.map(tag=>`<span class="career-tag">${tag}</span>`).join('')}</div>
+        ${c.desc ? `<div class="career-desc">${c.desc}</div>` : ''}
+      </div>
+    </div>`).join('') : '<div style="color:var(--gray-400);font:400 14px/1 var(--font)">경력 정보가 비공개입니다.</div>';
+  const eduHTML = t.educations.map(e => `
+    <div class="edu-item">
+      <div class="edu-icon">🎓</div>
+      <div class="edu-content">
+        <div class="edu-school">${e.school}</div>
+        <div class="edu-major">${e.major} · ${e.degree}</div>
+        <div class="edu-period">${e.period} <span class="edu-status" style="color:var(--gray-600)">${e.status}</span></div>
+      </div>
+    </div>`).join('');
+  const skillsHTML = t.skills.map(s => `<span class="skill-item">${s.name} <span class="skill-level">${s.level}</span></span>`).join('');
+  const condHTML = `
+    <div class="condition-grid">
+      <div class="condition-item"><div class="condition-label">희망 근무지</div><div class="condition-value">${t.desired.location}</div></div>
+      <div class="condition-item"><div class="condition-label">희망 급여</div><div class="condition-value primary">${t.desired.salary}</div></div>
+      <div class="condition-item"><div class="condition-label">고용 형태</div><div class="condition-value">${t.desired.type}</div></div>
+      <div class="condition-item"><div class="condition-label">희망 직무</div><div class="condition-value">${t.desired.jobType}</div></div>
+    </div>`;
+
+  return `
+    <!-- 프로필 -->
+    <div class="rp-profile">
+      <div class="rp-avatar-lg">${t.locked ? '🔒' : t.name[0]}</div>
+      <div class="rp-profile-info">
+        <div class="rp-name">${t.name}</div>
+        <div class="rp-meta">
+          <span class="rp-meta-item">${t.gender}성</span>
+          <span class="rp-meta-dot"></span>
+          <span class="rp-meta-item">${t.birth}년생 (만 ${t.age}세)</span>
+          <span class="rp-meta-dot"></span>
+          <span class="rp-meta-item">경력 ${t.career}</span>
+        </div>
+        <div class="rp-badges">${badgesHTML}</div>
+        <div class="rp-status-row"><span class="rp-update">${t.updatedAt} 업데이트</span></div>
+      </div>
+    </div>
+
+    <!-- 매칭 지표 -->
+    <div class="rp-match-bar">
+      <div>
+        <div style="font:400 11px/1 var(--font);color:var(--gray-500);margin-bottom:4px">매칭 점수</div>
+        <div class="rp-match-score">${t.matchScore}<span style="font-size:16px;font-weight:400">점</span></div>
+      </div>
+      <div class="rp-match-chips">${matchChipsHTML}</div>
+    </div>
+
+    ${lockNotice}
+
+    <!-- 자기소개 -->
+    <div class="rp-section">
+      <div class="rp-section-title">자기소개</div>
+      <div class="intro-box">${t.intro}</div>
+    </div>
+
+    <!-- 경력 -->
+    <div class="rp-section">
+      <div class="rp-section-title">경력</div>
+      ${careersHTML}
+    </div>
+
+    <!-- 학력 -->
+    <div class="rp-section">
+      <div class="rp-section-title">학력</div>
+      ${eduHTML}
+    </div>
+
+    <!-- 보유 스킬 -->
+    <div class="rp-section">
+      <div class="rp-section-title">보유 스킬</div>
+      <div class="skill-grid">${skillsHTML}</div>
+    </div>
+
+    <!-- 희망 조건 -->
+    <div class="rp-section">
+      <div class="rp-section-title">희망 조건</div>
+      ${condHTML}
+    </div>
+  `;
+}
+
+// ── 제안 이력 탭 ──────────────────────────────────────
+function renderProposalTab(t) {
+  const statusMap = {
+    accepted: { label: '수락', cls: 'badge-blue' },
+    pending: { label: '검토중', cls: 'badge-gray' },
+    rejected: { label: '거절', cls: 'badge-red' },
+    null: null,
+  };
+  if (!t.proposalDate) {
+    return `<div style="padding:40px 0;text-align:center;color:var(--gray-400);font:400 14px/22px var(--font)">아직 포지션 제안 이력이 없습니다.</div>`;
+  }
+  const s = statusMap[t.proposalStatus];
+  return `
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div style="background:var(--bg-base);border:1px solid var(--border-default);border-radius:var(--r-8);padding:20px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <div style="font:700 14px/1 var(--font);color:var(--gray-950)">시니어 UI/UX 디자이너 포지션</div>
+          <span class="badge ${s.cls}">${s.label}</span>
+        </div>
+        <div style="font:400 13px/1 var(--font);color:var(--gray-500);margin-bottom:8px">제안일: 20${t.proposalDate}</div>
+        <div style="font:400 13px/20px var(--font);color:var(--gray-700);padding:12px;background:var(--bg-surface);border-radius:var(--r-6)">안녕하세요, 저희 팀에서 함께 일해보고 싶어 연락드립니다. 귀하의 포트폴리오와 경력이 저희 포지션에 매우 적합하다고 생각합니다.</div>
+      </div>
+    </div>`;
+}
+
+// ── 메모 탭 ──────────────────────────────────────────
+function renderMemoTab(t) {
+  return `
+    <div>
+      <textarea placeholder="이 인재에 대한 메모를 남겨보세요..." style="width:100%;height:160px;border:1px solid var(--border-default);border-radius:var(--r-8);padding:14px;font:400 14px/22px var(--font);color:var(--gray-950);background:var(--bg-base);resize:vertical;outline:none" onfocus="this.style.borderColor='var(--color-primary)'" onblur="this.style.borderColor='var(--border-default)'"></textarea>
+      <div style="margin-top:8px;display:flex;justify-content:flex-end">
+        <button class="btn btn-primary" style="height:36px">저장</button>
+      </div>
+    </div>`;
+}
+
+// ── 카드 펼침/접힘 ────────────────────────────────────
+function tog(id, btn) {
+  const p = document.getElementById(id);
+  if (!p) return;
+  p.classList.toggle('open');
+  btn.classList.toggle('open');
+}
+
+// 페이지네이션
+document.querySelectorAll('.page-btn').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.page-btn').forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+}));
+
+// ESC 키로 모달 닫기
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeResume(); });
+
+// ── 모바일 반응형 처리 ──────────────────────────────────
+function isMobile() { return window.innerWidth <= 767; }
+
+// 드래그 핸들 표시/숨김
+function updateMobileHandle() {
+  document.getElementById('rpDragHandle').style.display = isMobile() ? 'flex' : 'none';
+}
+updateMobileHandle();
+window.addEventListener('resize', updateMobileHandle);
+
+// 터치 스와이프 다운으로 모달 닫기
+(function() {
+  const panel = document.getElementById('resumePanel');
+  let startY = 0, startTime = 0, dragging = false;
+
+  panel.addEventListener('touchstart', e => {
+    if (!isMobile()) return;
+    startY = e.touches[0].clientY;
+    startTime = Date.now();
+    dragging = true;
+    panel.style.transition = 'none';
+  }, {passive: true});
+
+  panel.addEventListener('touchmove', e => {
+    if (!dragging || !isMobile()) return;
+    const dy = e.touches[0].clientY - startY;
+    if (dy > 0) panel.style.transform = `translateY(${dy}px)`;
+  }, {passive: true});
+
+  panel.addEventListener('touchend', e => {
+    if (!dragging || !isMobile()) return;
+    dragging = false;
+    const dy = e.changedTouches[0].clientY - startY;
+    const dt = Date.now() - startTime;
+    panel.style.transition = '';
+    panel.style.transform = '';
+    // 빠르게 아래로 스와이프하거나 100px 이상 내리면 닫기
+    if (dy > 100 || (dy > 40 && dt < 300)) {
+      closeResume();
+    }
+  }, {passive: true});
+})();
+</script>
 </body>
 </html>
