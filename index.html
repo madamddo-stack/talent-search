@@ -48,6 +48,99 @@ body{font-family:var(--font);background:var(--bg-surface);color:var(--text-defau
 .pagination{display:flex;justify-content:center;align-items:center;gap:4px;padding:24px 0}.page-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border-default);border-radius:var(--r-4);font:500 13px/1 var(--font);color:var(--gray-700);cursor:pointer;background:var(--bg-base);transition:all .15s}.page-btn:hover{background:var(--gray-50)}.page-btn.active{background:var(--color-primary);color:#fff;border-color:var(--color-primary)}
 
 /* ══════════════════════════════════
+   포지션 제안 모달
+══════════════════════════════════ */
+.propose-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:600;display:none;align-items:center;justify-content:center;padding:20px}
+.propose-overlay.open{display:flex}
+.propose-modal{width:100%;max-width:600px;max-height:90vh;background:var(--bg-base);border-radius:16px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.2);animation:modalIn .25s cubic-bezier(.4,0,.2,1)}
+@keyframes modalIn{from{opacity:0;transform:scale(.96) translateY(8px)}to{opacity:1;transform:none}}
+
+/* 모달 헤더 */
+.pm-header{padding:20px 24px;border-bottom:1px solid var(--border-default);display:flex;align-items:center;gap:12px;flex-shrink:0}
+.pm-title{font:700 18px/1 var(--font);color:var(--gray-950);flex:1}
+.pm-close{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border-default);border-radius:var(--r-6);cursor:pointer;font-size:16px;color:var(--gray-600);background:var(--bg-base);transition:background .15s;flex-shrink:0}.pm-close:hover{background:var(--gray-50)}
+
+/* 인재 요약 카드 */
+.pm-talent-card{margin:20px 24px 0;padding:14px 16px;background:var(--bg-surface);border:1px solid var(--border-default);border-radius:var(--r-8);display:flex;align-items:center;gap:12px;flex-shrink:0}
+.pm-talent-avatar{width:40px;height:40px;border-radius:50%;background:var(--brand-50);color:var(--color-primary);display:flex;align-items:center;justify-content:center;font:700 15px/1 var(--font);flex-shrink:0}
+.pm-talent-info{flex:1;min-width:0}
+.pm-talent-name{font:700 15px/1 var(--font);color:var(--gray-950);margin-bottom:4px}
+.pm-talent-sub{font:400 13px/1 var(--font);color:var(--gray-600)}
+
+/* 모달 바디 */
+.pm-body{flex:1;overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column;gap:20px}
+.pm-body::-webkit-scrollbar{width:4px}.pm-body::-webkit-scrollbar-track{background:transparent}.pm-body::-webkit-scrollbar-thumb{background:var(--gray-200);border-radius:4px}
+
+/* 폼 필드 공통 */
+.pm-field{display:flex;flex-direction:column;gap:6px}
+.pm-label{font:600 14px/1 var(--font);color:var(--gray-800)}
+.pm-label span{color:var(--red-500);margin-left:2px}
+.pm-hint{font:400 12px/1 var(--font);color:var(--gray-500)}
+.pm-input{height:44px;border:1px solid var(--border-default);border-radius:var(--r-8);padding:0 14px;font:400 14px/1 var(--font);color:var(--gray-950);background:var(--bg-base);width:100%;transition:border-color .15s,box-shadow .15s;outline:none}
+.pm-input:focus{border-color:var(--color-primary);box-shadow:0 0 0 3px rgba(27,85,246,.1)}
+.pm-input::placeholder{color:var(--gray-400)}
+.pm-textarea{resize:vertical;min-height:120px;height:auto;padding:12px 14px;line-height:1.6}
+
+/* 포지션 선택 버튼 그룹 */
+.pm-position-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pm-position-btn{padding:12px 16px;border:1.5px solid var(--border-default);border-radius:var(--r-8);background:var(--bg-base);cursor:pointer;text-align:left;transition:all .15s;display:flex;flex-direction:column;gap:4px}
+.pm-position-btn:hover{border-color:var(--color-primary);background:var(--brand-50)}
+.pm-position-btn.selected{border-color:var(--color-primary);background:var(--brand-50)}
+.pm-position-btn.selected .pm-pos-name{color:var(--color-primary)}
+.pm-pos-name{font:600 14px/1 var(--font);color:var(--gray-950)}
+.pm-pos-dept{font:400 12px/1 var(--font);color:var(--gray-500)}
+.pm-pos-check{width:18px;height:18px;border-radius:50%;border:2px solid var(--border-default);flex-shrink:0;margin-left:auto;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.pm-position-btn.selected .pm-pos-check{background:var(--color-primary);border-color:var(--color-primary);color:#fff;font-size:11px}
+.pm-pos-row{display:flex;align-items:center;gap:8px}
+
+/* 급여 범위 */
+.pm-salary-row{display:flex;align-items:center;gap:10px}
+.pm-salary-row .pm-input{flex:1}
+.pm-salary-sep{font:400 14px/1 var(--font);color:var(--gray-500);flex-shrink:0}
+
+/* 메시지 템플릿 */
+.pm-template-row{display:flex;gap:8px;flex-wrap:wrap}
+.pm-template-chip{padding:6px 12px;border:1px solid var(--border-default);border-radius:var(--r-999);font:500 12px/1 var(--font);color:var(--gray-700);background:var(--bg-base);cursor:pointer;transition:all .15s}
+.pm-template-chip:hover{border-color:var(--color-primary);color:var(--color-primary);background:var(--brand-50)}
+
+/* 단계 표시 */
+.pm-steps{display:flex;align-items:center;gap:0;margin:0 24px;flex-shrink:0;padding-top:16px}
+.pm-step{display:flex;align-items:center;gap:6px;flex:1}
+.pm-step-dot{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:700 12px/1 var(--font);flex-shrink:0;transition:all .2s}
+.pm-step-dot.active{background:var(--color-primary);color:#fff}
+.pm-step-dot.done{background:var(--green-500);color:#fff}
+.pm-step-dot.idle{background:var(--gray-200);color:var(--gray-500)}
+.pm-step-label{font:500 12px/1 var(--font);transition:color .2s}
+.pm-step-label.active{color:var(--color-primary)}
+.pm-step-label.done{color:var(--green-500)}
+.pm-step-label.idle{color:var(--gray-400)}
+.pm-step-line{flex:1;height:1px;background:var(--gray-200);transition:background .2s}
+.pm-step-line.done{background:var(--green-500)}
+
+/* 모달 푸터 */
+.pm-footer{padding:16px 24px;border-top:1px solid var(--border-default);display:flex;gap:10px;flex-shrink:0;background:var(--bg-base)}
+.pm-footer .btn{height:44px;flex:1;justify-content:center;font:600 14px/1 var(--font);border-radius:var(--r-8)}
+
+/* 성공 화면 */
+.pm-success{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 24px;text-align:center;gap:16px}
+.pm-success-icon{width:72px;height:72px;border-radius:50%;background:var(--green-50);display:flex;align-items:center;justify-content:center;font-size:32px}
+.pm-success-title{font:700 22px/1.3 var(--font);color:var(--gray-950)}
+.pm-success-sub{font:400 14px/1.6 var(--font);color:var(--gray-600);max-width:340px}
+.pm-success-meta{background:var(--bg-surface);border-radius:var(--r-8);padding:14px 20px;width:100%;max-width:340px;display:flex;flex-direction:column;gap:8px}
+.pm-success-meta-row{display:flex;justify-content:space-between;align-items:center;font:400 13px/1 var(--font);color:var(--gray-700)}
+.pm-success-meta-row strong{font-weight:600;color:var(--gray-950)}
+
+/* 모바일 */
+@media(max-width:767px){
+  .propose-overlay{padding:0;align-items:flex-end}
+  .propose-modal{max-width:100%;max-height:95vh;border-radius:20px 20px 0 0;animation:mobileIn .3s cubic-bezier(.4,0,.2,1)}
+  @keyframes mobileIn{from{transform:translateY(100%)}to{transform:translateY(0)}}
+  .pm-position-grid{grid-template-columns:1fr}
+  .pm-salary-row{flex-wrap:wrap}
+  .pm-salary-row .pm-input{min-width:0}
+}
+
+/* ══════════════════════════════════
    이력서 모달 오버레이
 ══════════════════════════════════ */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:500;display:none;align-items:flex-start;justify-content:flex-end}
@@ -449,7 +542,7 @@ body{font-family:var(--font);background:var(--bg-surface);color:var(--text-defau
       </div><!-- /card-row-top -->
       <div class="action">
         <div class="action-top">
-          <button class="btn btn-dark propose-btn" onclick="event.stopPropagation()">포지션 제안하기</button>
+          <button class="btn btn-dark propose-btn" onclick="openProposeFromCard(0,event)">포지션 제안하기</button>
           <div class="prop-hist"><span class="prop-date">✓ 25.03.15 제안</span><span class="badge badge-blue" style="font-size:11px">수락</span></div>
         </div>
         <button class="exp-btn" onclick="event.stopPropagation();tog('ep1',this)">▼</button>
@@ -473,7 +566,7 @@ body{font-family:var(--font);background:var(--bg-surface);color:var(--text-defau
       </div><!-- /card-row-top -->
       <div class="action">
         <div class="action-top">
-          <button class="btn btn-dark propose-btn" onclick="event.stopPropagation()">포지션 제안하기</button>
+          <button class="btn btn-dark propose-btn" onclick="openProposeFromCard(1,event)">포지션 제안하기</button>
           <div class="prop-hist"><span class="prop-date">✓ 25.04.02 제안</span><span class="badge badge-gray" style="font-size:11px">검토중</span></div>
           <span class="viewed-lbl">열람한 인재</span>
         </div>
@@ -495,7 +588,7 @@ body{font-family:var(--font);background:var(--bg-surface);color:var(--text-defau
       </div>
       </div><!-- /card-row-top -->
       <div class="action">
-        <div class="action-top"><button class="btn btn-dark propose-btn" onclick="event.stopPropagation()">포지션 제안하기</button></div>
+        <div class="action-top"><button class="btn btn-dark propose-btn" onclick="openProposeFromCard(2,event)">포지션 제안하기</button></div>
         <button class="exp-btn" onclick="event.stopPropagation()">▼</button>
       </div>
     </div>
@@ -537,6 +630,60 @@ body{font-family:var(--font);background:var(--bg-surface);color:var(--text-defau
   </div>
 </div>
 </div><!-- /page -->
+
+<!-- ══════════════════════════════════
+     포지션 제안 모달
+══════════════════════════════════ -->
+<div class="propose-overlay" id="proposeOverlay" onclick="handleProposeOverlay(event)">
+  <div class="propose-modal" id="proposeModal">
+
+    <!-- 단계 표시 -->
+    <div class="pm-steps" id="pmSteps">
+      <div class="pm-step">
+        <div class="pm-step-dot active" id="pmDot1">1</div>
+        <span class="pm-step-label active" id="pmLbl1">포지션 선택</span>
+      </div>
+      <div class="pm-step-line" id="pmLine1"></div>
+      <div class="pm-step">
+        <div class="pm-step-dot idle" id="pmDot2">2</div>
+        <span class="pm-step-label idle" id="pmLbl2">조건 설정</span>
+      </div>
+      <div class="pm-step-line" id="pmLine2"></div>
+      <div class="pm-step">
+        <div class="pm-step-dot idle" id="pmDot3">3</div>
+        <span class="pm-step-label idle" id="pmLbl3">메시지 작성</span>
+      </div>
+    </div>
+
+    <!-- 헤더 -->
+    <div class="pm-header">
+      <div class="pm-title" id="pmTitle">포지션 제안하기</div>
+      <button class="pm-close" onclick="closeProposeModal()">✕</button>
+    </div>
+
+    <!-- 인재 요약 카드 -->
+    <div class="pm-talent-card" id="pmTalentCard">
+      <div class="pm-talent-avatar" id="pmTalentAvatar">김</div>
+      <div class="pm-talent-info">
+        <div class="pm-talent-name" id="pmTalentName">김민지</div>
+        <div class="pm-talent-sub" id="pmTalentSub">여 · 1992 · 경력 5년 3개월 · UI/UX 디자이너</div>
+      </div>
+      <span class="badge badge-violet" id="pmTalentBadge">응답률 높음</span>
+    </div>
+
+    <!-- 바디 (단계별 콘텐츠) -->
+    <div class="pm-body" id="pmBody">
+      <!-- JS로 렌더링 -->
+    </div>
+
+    <!-- 푸터 -->
+    <div class="pm-footer" id="pmFooter">
+      <button class="btn btn-outline" id="pmBackBtn" onclick="proposeBack()" style="display:none">이전</button>
+      <button class="btn btn-primary" id="pmNextBtn" onclick="proposeNext()">다음 단계</button>
+    </div>
+
+  </div>
+</div>
 
 <!-- ══════════════════════════════════
      이력서 상세 모달
@@ -884,7 +1031,317 @@ document.querySelectorAll('.page-btn').forEach(b => b.addEventListener('click', 
 }));
 
 // ESC 키로 모달 닫기
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeResume(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    if (document.getElementById('proposeOverlay').classList.contains('open')) closeProposeModal();
+    else closeResume();
+  }
+});
+
+// ══════════════════════════════════
+// 포지션 제안 모달
+// ══════════════════════════════════
+let proposeStep = 1;
+let proposeData = { positionId: null, positionName: '', salary: { min: '', max: '' }, startDate: '', message: '' };
+let proposeTalentIdx = 0;
+
+const positions = [
+  { id: 1, name: 'Senior UI/UX 디자이너', dept: '프로덕트 디자인팀', salary: '480~580' },
+  { id: 2, name: '프로덕트 디자이너', dept: '사용자경험팀', salary: '420~520' },
+  { id: 3, name: 'UX 리서처', dept: '리서치팀', salary: '400~500' },
+  { id: 4, name: 'Design System 담당자', dept: '플랫폼팀', salary: '460~560' },
+];
+
+const templates = [
+  '안녕하세요, 귀하의 포트폴리오와 경력이 저희 팀에 매우 적합하다고 생각합니다.',
+  '현재 저희 팀이 빠르게 성장하고 있으며, 함께 만들어갈 기회를 제안드립니다.',
+  '업계 최고 수준의 복지와 성장 환경을 제공하고 있습니다.',
+];
+
+function openProposeModal(talentIdx) {
+  proposeTalentIdx = talentIdx !== undefined ? talentIdx : 0;
+  proposeStep = 1;
+  proposeData = { positionId: null, positionName: '', salary: { min: '', max: '' }, startDate: '', message: '' };
+
+  const t = talents[proposeTalentIdx];
+  document.getElementById('pmTalentAvatar').textContent = t.locked ? '🔒' : t.name[0];
+  document.getElementById('pmTalentName').textContent = t.name;
+  document.getElementById('pmTalentSub').textContent =
+    `${t.gender} · ${t.birth} · 경력 ${t.career} · ${t.desired.jobType}`;
+
+  const badgeMap = { '응답률 높음': 'badge-violet', '최근 활동': 'badge-green' };
+  const firstBadge = t.badges[0];
+  const badgeEl = document.getElementById('pmTalentBadge');
+  badgeEl.textContent = firstBadge;
+  badgeEl.className = 'badge ' + (badgeMap[firstBadge] || 'badge-gray');
+
+  renderProposeStep();
+  document.getElementById('proposeOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeProposeModal() {
+  document.getElementById('proposeOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleProposeOverlay(e) {
+  if (e.target === document.getElementById('proposeOverlay')) closeProposeModal();
+}
+
+function renderProposeStep() {
+  updateStepUI();
+  const body = document.getElementById('pmBody');
+  const footer = document.getElementById('pmFooter');
+  const backBtn = document.getElementById('pmBackBtn');
+  const nextBtn = document.getElementById('pmNextBtn');
+
+  backBtn.style.display = proposeStep > 1 ? 'flex' : 'none';
+
+  if (proposeStep === 1) {
+    document.getElementById('pmTitle').textContent = '포지션 선택';
+    nextBtn.textContent = '다음 단계';
+    body.innerHTML = renderStep1();
+  } else if (proposeStep === 2) {
+    document.getElementById('pmTitle').textContent = '제안 조건 설정';
+    nextBtn.textContent = '다음 단계';
+    body.innerHTML = renderStep2();
+  } else if (proposeStep === 3) {
+    document.getElementById('pmTitle').textContent = '제안 메시지 작성';
+    nextBtn.textContent = '제안 보내기';
+    nextBtn.className = 'btn btn-primary';
+    body.innerHTML = renderStep3();
+  }
+}
+
+function updateStepUI() {
+  for (let i = 1; i <= 3; i++) {
+    const dot = document.getElementById(`pmDot${i}`);
+    const lbl = document.getElementById(`pmLbl${i}`);
+    if (i < proposeStep) {
+      dot.className = 'pm-step-dot done'; dot.textContent = '✓';
+      lbl.className = 'pm-step-label done';
+    } else if (i === proposeStep) {
+      dot.className = 'pm-step-dot active'; dot.textContent = i;
+      lbl.className = 'pm-step-label active';
+    } else {
+      dot.className = 'pm-step-dot idle'; dot.textContent = i;
+      lbl.className = 'pm-step-label idle';
+    }
+  }
+  document.getElementById('pmLine1').className = 'pm-step-line' + (proposeStep > 1 ? ' done' : '');
+  document.getElementById('pmLine2').className = 'pm-step-line' + (proposeStep > 2 ? ' done' : '');
+}
+
+// ── Step 1: 포지션 선택 ──
+function renderStep1() {
+  return `
+    <div class="pm-field">
+      <div class="pm-label">제안할 포지션을 선택해주세요<span>*</span></div>
+      <div class="pm-hint">현재 채용 중인 포지션만 표시됩니다</div>
+    </div>
+    <div class="pm-position-grid">
+      ${positions.map(p => `
+        <button class="pm-position-btn ${proposeData.positionId === p.id ? 'selected' : ''}"
+          onclick="selectPosition(${p.id}, '${p.name}', '${p.salary}')">
+          <div class="pm-pos-row">
+            <div>
+              <div class="pm-pos-name">${p.name}</div>
+              <div class="pm-pos-dept">${p.dept}</div>
+            </div>
+            <div class="pm-pos-check">${proposeData.positionId === p.id ? '✓' : ''}</div>
+          </div>
+          <div style="font:400 12px/1 var(--font);color:var(--color-primary);margin-top:6px">
+            💰 ${p.salary}만원
+          </div>
+        </button>
+      `).join('')}
+    </div>
+    <div class="pm-field">
+      <div class="pm-label">또는 직접 입력</div>
+      <input class="pm-input" placeholder="포지션명을 직접 입력하세요"
+        value="${proposeData.positionId === 0 ? proposeData.positionName : ''}"
+        oninput="proposeData.positionId=0; proposeData.positionName=this.value"
+        style="margin-top:0">
+    </div>`;
+}
+
+function selectPosition(id, name, salary) {
+  proposeData.positionId = id;
+  proposeData.positionName = name;
+  const [min, max] = salary.split('~');
+  proposeData.salary = { min: min+'만원', max: max+'만원' };
+  document.getElementById('pmBody').innerHTML = renderStep1();
+}
+
+// ── Step 2: 조건 설정 ──
+function renderStep2() {
+  return `
+    <div class="pm-field">
+      <div class="pm-label">선택 포지션</div>
+      <div style="padding:12px 14px;background:var(--brand-50);border:1px solid var(--brand-100);border-radius:var(--r-8);font:600 14px/1 var(--font);color:var(--color-primary)">
+        ${proposeData.positionName || '포지션 미선택'}
+      </div>
+    </div>
+    <div class="pm-field">
+      <div class="pm-label">제안 급여 범위<span>*</span></div>
+      <div class="pm-salary-row">
+        <input class="pm-input" placeholder="최소 (예: 480만원)"
+          value="${proposeData.salary.min}"
+          oninput="proposeData.salary.min=this.value">
+        <span class="pm-salary-sep">~</span>
+        <input class="pm-input" placeholder="최대 (예: 580만원)"
+          value="${proposeData.salary.max}"
+          oninput="proposeData.salary.max=this.value">
+      </div>
+    </div>
+    <div class="pm-field">
+      <div class="pm-label">희망 입사일</div>
+      <input class="pm-input" type="date" value="${proposeData.startDate}"
+        oninput="proposeData.startDate=this.value"
+        min="${new Date().toISOString().split('T')[0]}">
+    </div>
+    <div class="pm-field">
+      <div class="pm-label">근무 형태</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        ${['정규직','계약직','프리랜서','인턴'].map(t => `
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;padding:8px 14px;border:1px solid var(--border-default);border-radius:var(--r-999);font:500 13px/1 var(--font);color:var(--gray-700)">
+            <input type="radio" name="workType" value="${t}" style="accent-color:var(--color-primary)" ${t==='정규직'?'checked':''}>
+            ${t}
+          </label>`).join('')}
+      </div>
+    </div>
+    <div class="pm-field">
+      <div class="pm-label">근무지</div>
+      <select class="pm-input" style="height:44px;cursor:pointer">
+        <option>서울 강남구</option>
+        <option>서울 마포구</option>
+        <option>서울 성수동</option>
+        <option>재택근무</option>
+        <option>하이브리드</option>
+      </select>
+    </div>`;
+}
+
+// ── Step 3: 메시지 작성 ──
+function renderStep3() {
+  const t = talents[proposeTalentIdx];
+  return `
+    <div class="pm-field">
+      <div class="pm-label">제안 요약</div>
+      <div style="background:var(--bg-surface);border-radius:var(--r-8);padding:14px 16px;display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;justify-content:space-between;font:400 13px/1 var(--font)">
+          <span style="color:var(--gray-500)">포지션</span>
+          <span style="font-weight:600;color:var(--gray-950)">${proposeData.positionName}</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font:400 13px/1 var(--font)">
+          <span style="color:var(--gray-500)">급여</span>
+          <span style="font-weight:600;color:var(--color-primary)">${proposeData.salary.min} ~ ${proposeData.salary.max}</span>
+        </div>
+        ${proposeData.startDate ? `<div style="display:flex;justify-content:space-between;font:400 13px/1 var(--font)">
+          <span style="color:var(--gray-500)">희망 입사일</span>
+          <span style="font-weight:600;color:var(--gray-950)">${proposeData.startDate}</span>
+        </div>` : ''}
+      </div>
+    </div>
+    <div class="pm-field">
+      <div class="pm-label">메시지 템플릿<span style="color:var(--gray-400);font-weight:400;margin-left:4px">(선택)</span></div>
+      <div class="pm-template-row">
+        ${templates.map((tmpl, i) => `
+          <button class="pm-template-chip" onclick="applyTemplate(${i})">템플릿 ${i+1}</button>
+        `).join('')}
+        <button class="pm-template-chip" onclick="clearMessage()">지우기</button>
+      </div>
+    </div>
+    <div class="pm-field">
+      <div class="pm-label">제안 메시지<span>*</span></div>
+      <div class="pm-hint">${t.name}님에게 보낼 메시지를 작성해주세요</div>
+      <textarea class="pm-input pm-textarea" id="pmMessageArea"
+        placeholder="안녕하세요, ${t.name}님. 저희 팀에서 함께 일해보고 싶어 연락드립니다..."
+        oninput="proposeData.message=this.value">${proposeData.message}</textarea>
+      <div style="font:400 12px/1 var(--font);color:var(--gray-400);text-align:right;margin-top:4px">
+        <span id="msgCount">${proposeData.message.length}</span> / 500자
+      </div>
+    </div>
+    <div style="background:#FFF8E8;border:1px solid #FFE8A3;border-radius:var(--r-8);padding:14px 16px;font:400 13px/20px var(--font);color:#8B6000;display:flex;gap:10px">
+      <span style="flex-shrink:0">⚠️</span>
+      <span>제안 전송 후 인재가 수락하면 상세 연락처가 공개됩니다. 한 인재에게 동일 포지션 제안은 1회만 가능합니다.</span>
+    </div>`;
+}
+
+function applyTemplate(idx) {
+  const ta = document.getElementById('pmMessageArea');
+  if (ta) {
+    ta.value = templates[idx];
+    proposeData.message = templates[idx];
+    document.getElementById('msgCount').textContent = templates[idx].length;
+  }
+}
+
+function clearMessage() {
+  const ta = document.getElementById('pmMessageArea');
+  if (ta) { ta.value = ''; proposeData.message = ''; document.getElementById('msgCount').textContent = '0'; }
+}
+
+function proposeNext() {
+  if (proposeStep === 1) {
+    if (!proposeData.positionId && !proposeData.positionName) {
+      alert('제안할 포지션을 선택하거나 입력해주세요.'); return;
+    }
+    proposeStep = 2;
+    renderProposeStep();
+  } else if (proposeStep === 2) {
+    if (!proposeData.salary.min || !proposeData.salary.max) {
+      alert('제안 급여 범위를 입력해주세요.'); return;
+    }
+    proposeStep = 3;
+    renderProposeStep();
+  } else if (proposeStep === 3) {
+    const msg = document.getElementById('pmMessageArea')?.value || proposeData.message;
+    if (!msg.trim()) { alert('제안 메시지를 작성해주세요.'); return; }
+    proposeData.message = msg;
+    sendPropose();
+  }
+}
+
+function proposeBack() {
+  if (proposeStep > 1) { proposeStep--; renderProposeStep(); }
+}
+
+function sendPropose() {
+  const t = talents[proposeTalentIdx];
+  // 성공 화면
+  document.getElementById('pmSteps').style.display = 'none';
+  document.getElementById('pmTalentCard').style.display = 'none';
+  document.getElementById('pmFooter').innerHTML = `
+    <button class="btn btn-primary" onclick="closeProposeModal()" style="flex:1;height:44px;font:600 14px/1 var(--font)">확인</button>`;
+  document.getElementById('pmTitle').textContent = '제안 완료';
+  document.getElementById('pmBody').innerHTML = `
+    <div class="pm-success">
+      <div class="pm-success-icon">✅</div>
+      <div class="pm-success-title">${t.name}님께 포지션 제안을 보냈습니다!</div>
+      <div class="pm-success-sub">인재가 확인 후 수락/거절 의사를 알려드립니다. 평균 응답 시간은 2~3 영업일입니다.</div>
+      <div class="pm-success-meta">
+        <div class="pm-success-meta-row"><span>포지션</span><strong>${proposeData.positionName}</strong></div>
+        <div class="pm-success-meta-row"><span>급여 범위</span><strong style="color:var(--color-primary)">${proposeData.salary.min} ~ ${proposeData.salary.max}</strong></div>
+        <div class="pm-success-meta-row"><span>제안일</span><strong>${new Date().toLocaleDateString('ko-KR')}</strong></div>
+      </div>
+    </div>`;
+}
+
+// 카드의 "포지션 제안하기" 버튼 연결
+function openProposeFromCard(talentIdx, e) {
+  if (e) e.stopPropagation();
+  openProposeModal(talentIdx);
+}
+
+// 이력서 패널의 "포지션 제안하기" 버튼 연결
+document.addEventListener('click', function(e) {
+  if (e.target && e.target.id === 'rpProposeBtn') {
+    openProposeModal(currentIdx);
+  }
+});
+
 
 // ── 모바일 반응형 처리 ──────────────────────────────────
 function isMobile() { return window.innerWidth <= 767; }
